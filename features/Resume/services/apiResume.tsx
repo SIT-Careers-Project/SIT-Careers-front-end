@@ -14,6 +14,10 @@ const apiResume = {
   },
   createResume: async (data) => {
     const formData = new FormData()
+    if (data['file_resume'][0]) {
+      formData.append('file_resume', data['file_resume'][0])
+    }
+    formData.append('path_file', data.path_file ? data.path_file : '-')
     formData.append('name_title', data.name_title)
     formData.append('first_name', data.first_name)
     formData.append('last_name', data.last_name)
@@ -22,8 +26,6 @@ const apiResume = {
     formData.append('year', data.year)
     formData.append('tel_no', data.tel_no)
     formData.append('resume_link', data.resume_link)
-    formData.append('file_resume', data['file_resume'][0])
-    formData.append('path_file', data.path_file ? data.path_file : '-')
     const response = await api.post('/academic-industry/resume', formData, {
       headers: { 'Content-type': 'multipart/form-data' }
     })
@@ -31,6 +33,9 @@ const apiResume = {
   },
   updateResume: async (data) => {
     const formData = new FormData()
+    if (data['file_resume'][0]) {
+      formData.append('file_resume', data['file_resume'][0])
+    }
     formData.append('resume_id', data.resume_id)
     formData.append('name_title', data.name_title)
     formData.append('first_name', data.first_name)
@@ -40,7 +45,6 @@ const apiResume = {
     formData.append('year', data.year)
     formData.append('tel_no', data.tel_no)
     formData.append('resume_link', data.resume_link)
-    formData.append('file_resume', data['file_resume'][0])
     formData.append('path_file', data.path_file)
     formData.append('_method', 'put')
     const response = await api.post('/academic-industry/resume', formData, {
